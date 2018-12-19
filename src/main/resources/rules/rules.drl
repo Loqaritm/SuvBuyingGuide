@@ -1,0 +1,16 @@
+package com.drools.example
+import javax.swing.JOptionPane
+import javax.swing.JFrame
+import javax.swing.Icon
+import org.kie.api.runtime.*
+
+
+global JFrame frame
+
+rule init0
+    when
+    then
+        askUserWithOtherOptions(QuestionSet.WHAT_KIND_OF_RELATION, kcontext.getKieRuntime(), new Answers[]{
+        	Answers.PROFESSIONAL, Answers.PERSONAL
+        });
+end

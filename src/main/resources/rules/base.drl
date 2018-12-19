@@ -1,0 +1,43 @@
+package com.drools.example
+
+declare enum Answers
+    YES("Yes"),
+    NO("No");
+
+    value: String;
+end
+
+
+
+function void askUser(QuestionSet question, KieRuntime krt){
+    Answers[] answers = {Answers.YES, Answers.NO};
+    askUserWithOtherOptions(question, krt, answers);
+}
+
+function void askUserWithOtherOptions(QuestionSet question, KieRuntime krt, Answers[] answers){
+    String[] options = new String[answers.length];
+    for(int i = 0; i < options.length; i++) {
+        options[i] = answers[i].getValue();
+    }
+    int n = JOptionPane.showOptionDialog(
+                (JFrame) krt.getGlobal("frame"),
+                question.getValue(),
+                "",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                (Icon) null,
+                options,
+                options[0]
+    		);
+    Question q;
+    if(n >= 0) {
+        q = new Question(question, answers[n]);
+    } else {
+        q = new Question(question, null);
+    }
+    krt.insert(q);
+}
+
+function void showMessage(Messages message, KieRuntime krt){
+    JOptionPane.showMessageDialog((JFrame) krt.getGlobal("frame"), message.getValue());
+}
