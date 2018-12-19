@@ -10,540 +10,338 @@ global JFrame frame
 rule init0
     when
     then
-        askUserWithOtherOptions(QuestionSet.WHAT_KIND_OF_RELATION, kcontext.getKieRuntime(), new Answers[]{
-        	Answers.PROFESSIONAL, Answers.PERSONAL
+        askUserWithOtherOptions(QuestionSet.WILL_YOU_EVER_ACTUALLY_TAKE_IT_OFF_ROAD, kcontext.getKieRuntime(), new Answers[]{
+        	Answers.NOT_IF_I_CAN_HELP, Answers.ROADS_ARE_FOR_CHOADS, Answers.SOMETIMES_FOR_WORK
         });
 end
 
-rule "WHAT_KIND_OF_RELATION/PERSONAL"
+rule "WILL_YOU_EVER_ACTUALLY_TAKE_IT_OFF_ROAD/ROADS_ARE_FOR_CHOADS"
     when
-        Question: Question(question == QuestionSet.WHAT_KIND_OF_RELATION && answer == Answers.PERSONAL)
+        Question: Question(question == QuestionSet.WILL_YOU_EVER_ACTUALLY_TAKE_IT_OFF_ROAD && answer == Answers.ROADS_ARE_FOR_CHOADS)
     then
-        askUserWithOtherOptions(QuestionSet.ARE_YOU_RELATED, kcontext.getKieRuntime(), new Answers[]{
-        Answers.YES, Answers.NO});
+        askUserWithOtherOptions(QuestionSet.WHAT_DO_YOU_LIKE_TO_DO_WHEN_OFFROAD, kcontext.getKieRuntime(), new Answers[]{
+        Answers.BE_AWESOME_OG_AND_IM_SUPER_RICH, Answers.CLIMB_ROCKS_AND_MAKE_YOUTUBE_VIDEOS,Answers.GO_CAMPING_EAT_GRANOLA_OR_DEER_MEAT, Answers.UNDERTAKE_EXPEDITIONS, Answers.RALLY });
 end
 
-rule "WHAT_KIND_OF_RELATION/PROFESSIONAL"
+rule "WHAT_DO_YOU_LIKE_TO_DO_WHEN_OFFROAD/BE_AWESOME_OG_AND_IM_SUPER_RICH"
     when
-        Question: Question(question == QuestionSet.WHAT_KIND_OF_RELATION && answer == Answers.PROFESSIONAL)
+        Question: Question(question == QuestionSet.WHAT_DO_YOU_LIKE_TO_DO_WHEN_OFFROAD && answer == Answers.BE_AWESOME_OG_AND_IM_SUPER_RICH)
     then
-        askUserWithOtherOptions(QuestionSet.WHO_IS_THIS, kcontext.getKieRuntime(), new Answers[]{
-        Answers.COSTAR, Answers.STALKER, Answers.THERAPIST, Answers.SOCIAL_WORKER, Answers.LANDLORD, Answers.PHYSICIAN, Answers.BOSS_COWORKER, Answers.PROFESSOR, Answers.TEACHER, Answers.STUDENT});
+        askUserWithOtherOptions(QuestionSet.OLD_SCHOOL_OR_NEW, kcontext.getKieRuntime(), new Answers[]{
+        Answers.OLD_IS_GOLD, Answers.NEW_NEW_NEW});
 end
 
-rule "ARE_YOU_RELATED/YES"
+rule "OLD_SCHOOL_OR_NEW/OLD_IS_GOLD"
     when
-        Question: Question(question == QuestionSet.ARE_YOU_RELATED && answer == Answers.YES)
+        Question: Question(question == QuestionSet.OLD_SCHOOL_OR_NEW && answer == Answers.OLD_IS_GOLD)
     then
-        askUserWithOtherOptions(QuestionSet.BY_BLOOD, kcontext.getKieRuntime(), new Answers[]{
-        Answers.YES, Answers.NO});
-end
-
-rule "ARE_YOU_RELATED/NO"
-    when
-        Question: Question(question == QuestionSet.ARE_YOU_RELATED && answer == Answers.NO)
-    then
-        askUserWithOtherOptions(QuestionSet.WHO_IS_THIS, kcontext.getKieRuntime(), new Answers[]{
-        Answers.MISSED_CONNECTION, Answers.BEST_FRIEND_SIBLING, Answers.DEALER, Answers.ROOMMATE, Answers.SOULMATE, Answers.CELLMATE, Answers.DUNGEON_MASTER, Answers.HIGH_SCHOOL_CRUSH});
-end
-
-rule "WHO_IS_THIS/COSTAR"
-    when
-        Question: Question(question == QuestionSet.WHO_IS_THIS && answer == Answers.COSTAR)
-    then
-        askUserWithOtherOptions(QuestionSet.GENERATE_PUBLICITY, kcontext.getKieRuntime(), new Answers[]{
-        Answers.YES, Answers.NO});
-end
-
-rule "WHO_IS_THIS/STALKER"
-    when
-        Question: Question(question == QuestionSet.WHO_IS_THIS && answer == Answers.STALKER)
-    then
-        askUserWithOtherOptions(QuestionSet.RESTRAINING_ORDER_INVOLVED, kcontext.getKieRuntime(), new Answers[]{
-        Answers.YES, Answers.NO});
-end
-
-rule "WHO_IS_THIS/THERAPIST"
-    when
-        Question: Question(question == QuestionSet.WHO_IS_THIS && answer == Answers.THERAPIST)
-    then
-        askUserWithOtherOptions(QuestionSet.ARE_YOU_CRAZY_B, kcontext.getKieRuntime(), new Answers[]{
-        Answers.I_DONT_THINK_SO, Answers.MAYBE_A_LITTLE});
-end
-
-rule "WHO_IS_THIS/SOCIAL_WORKER"
-    when
-        Question: Question(question == QuestionSet.WHO_IS_THIS && answer == Answers.SOCIAL_WORKER)
-    then
-        askUserWithOtherOptions(QuestionSet.KIDS_BACK, kcontext.getKieRuntime(), new Answers[]{
-        Answers.YES, Answers.NO});
-end
-
-rule "WHO_IS_THIS/LANDLORD"
-    when
-        Question: Question(question == QuestionSet.WHO_IS_THIS && answer == Answers.LANDLORD)
-    then
-        askUserWithOtherOptions(QuestionSet.WHERE_DO_YOU_LIVE, kcontext.getKieRuntime(), new Answers[]{
-        Answers.YES, Answers.NO});
-end
-
-rule "WHO_IS_THIS/PHYSICIAN"
-    when
-        Question: Question(question == QuestionSet.WHO_IS_THIS && answer == Answers.PHYSICIAN)
-    then
-        askUserWithOtherOptions(QuestionSet.HEALTH_RISK, kcontext.getKieRuntime(), new Answers[]{
-        Answers.YES, Answers.NO});
-end
-
-rule "WHO_IS_THIS/BOSS_COWORKER"
-    when
-        Question: Question(question == QuestionSet.WHO_IS_THIS && answer == Answers.BOSS_COWORKER)
-    then
-        askUserWithOtherOptions(QuestionSet.JOB_SUCKS, kcontext.getKieRuntime(), new Answers[]{
-        Answers.YES, Answers.NO});
-end
-
-rule "WHO_IS_THIS/PROFESSOR"
-    when
-        Question: Question(question == QuestionSet.WHO_IS_THIS && answer == Answers.PROFESSOR)
-    then
-        showMessage(Messages.BONE, kcontext.getKieRuntime());
-end
-
-rule "WHO_IS_THIS/TEACHER"
-    when
-        Question: Question(question == QuestionSet.WHO_IS_THIS && answer == Answers.TEACHER)
-    then
-        showMessage(Messages.ABSOLUTELY_NOT, kcontext.getKieRuntime());
-//        askUserWithOtherOptions(QuestionSet.finish, kcontext.getKieRuntime(), new Answers[]{
-//        fisnish});
-end
-
-rule "WHO_IS_THIS/STUDENT"
-    when
-        Question: Question(question == QuestionSet.WHO_IS_THIS && answer == Answers.STUDENT)
-    then
-        askUserWithOtherOptions(QuestionSet.WHERE_DO_YOU_TEACH, kcontext.getKieRuntime(), new Answers[]{
-        Answers.COLLEGE, Answers.ANYTHING_BELOW_COLLEGE});
-end
-
-rule "BY_BLOOD/YES"
-    when
-        Question: Question(question == QuestionSet.BY_BLOOD && answer == Answers.YES)
-    then
-        askUserWithOtherOptions(QuestionSet.WHO_IS_THIS, kcontext.getKieRuntime(), new Answers[]{
-        Answers.BROTHER_SISTER, Answers.SECOND_COUSIN});
-end
-
-rule "BY_BLOOD/NO"
-    when
-        Question: Question(question == QuestionSet.BY_BLOOD && answer == Answers.NO)
-    then
-        askUserWithOtherOptions(QuestionSet.WHO_IS_THIS, kcontext.getKieRuntime(), new Answers[]{
-        Answers.BROTHER_WIFE_COUSIN, Answers.CHILD});
-end
+        showMessage(Messages.ICON_FJ, kcontext.getKieRuntime());
 
-rule "WHO_IS_THIS/MISSED_CONNECTION"
-    when
-        Question: Question(question == QuestionSet.WHO_IS_THIS && answer == Answers.MISSED_CONNECTION)
-    then
-        askUserWithOtherOptions(QuestionSet.LONELY, kcontext.getKieRuntime(), new Answers[]{
-        Answers.A_LITTLE, Answers.NOT_AT_ALL});
-end
-
-rule "WHO_IS_THIS/BEST_FRIEND_SIBLING"
-    when
-        Question: Question(question == QuestionSet.WHO_IS_THIS && answer == Answers.BEST_FRIEND_SIBLING)
-    then
-        askUserWithOtherOptions(QuestionSet.ARE_YOU_CRAZY, kcontext.getKieRuntime(), new Answers[]{
-        Answers.I_DONT_THINK_SO, Answers.A_LITTLE});
-end
-
-rule "WHO_IS_THIS/DEALER"
-    when
-        Question: Question(question == QuestionSet.WHO_IS_THIS && answer == Answers.DEALER)
-    then
-        askUserWithOtherOptions(QuestionSet.GETTING_HIGH, kcontext.getKieRuntime(), new Answers[]{
-        Answers.YES, Answers.NO});
-end
-
-rule "WHO_IS_THIS/ROOMMATE"
-    when
-        Question: Question(question == QuestionSet.WHO_IS_THIS && answer == Answers.ROOMMATE)
-    then
-        askUserWithOtherOptions(QuestionSet.LIKE_DRAMA, kcontext.getKieRuntime(), new Answers[]{
-        Answers.YES, Answers.NO});
-end
-
-rule "WHO_IS_THIS/SOULMATE"
-    when
-        Question: Question(question == QuestionSet.WHO_IS_THIS && answer == Answers.SOULMATE)
-    then
-        askUserWithOtherOptions(QuestionSet.SEX_WITH_OTHER_PEOPLE, kcontext.getKieRuntime(), new Answers[]{
-        Answers.YES, Answers.NO});
-end
-
-rule "WHO_IS_THIS/CELLMATE"
-    when
-        Question: Question(question == QuestionSet.WHO_IS_THIS && answer == Answers.CELLMATE)
-    then
-        askUserWithOtherOptions(QuestionSet.HAVING_CHOICE, kcontext.getKieRuntime(), new Answers[]{
-        Answers.YES, Answers.NO});
-end
-
-rule "WHO_IS_THIS/DUNGEON_MASTER"
-    when
-        Question: Question(question == QuestionSet.WHO_IS_THIS && answer == Answers.DUNGEON_MASTER)
-    then
-        showMessage(Messages.YES_FOR_THE_GOD, kcontext.getKieRuntime());
-//        askUserWithOtherOptions(QuestionSet.finish, kcontext.getKieRuntime(), new Answers[]{
-//        fisnish});
-end
-
-rule "WHO_IS_THIS/HIGH_SCHOOL_CRUSH"
-    when
-        Question: Question(question == QuestionSet.WHO_IS_THIS && answer == Answers.HIGH_SCHOOL_CRUSH)
-    then
-        showMessage(Messages.YOU_MISSED, kcontext.getKieRuntime());
-
-//        askUserWithOtherOptions(QuestionSet.finish, kcontext.getKieRuntime(), new Answers[]{
-//        fisnish});
-end
-
-rule "GENERATE_PUBLICITY/YES"
-    when
-        Question: Question(question == QuestionSet.GENERATE_PUBLICITY && answer == Answers.YES)
-    then
-        showMessage(Messages.HI_ROBERT_PATTINSON, kcontext.getKieRuntime());
-
-end
-
-rule "GENERATE_PUBLICITY/NO"
-    when
-        Question: Question(question == QuestionSet.GENERATE_PUBLICITY && answer == Answers.NO)
-    then
-        showMessage(Messages.NOT_ADVISED, kcontext.getKieRuntime());
 end
 
-rule "RESTRAINING_ORDER_INVOLVED/YES"
+rule "OLD_SCHOOL_OR_NEW/NEW_NEW_NEW"
     when
-        Question: Question(question == QuestionSet.RESTRAINING_ORDER_INVOLVED && answer == Answers.YES)
+        Question: Question(question == QuestionSet.OLD_SCHOOL_OR_NEW && answer == Answers.NEW_NEW_NEW)
     then
-        askUserWithOtherOptions(QuestionSet.THE_ONLY_ONE_WHO_LOVES_YOU, kcontext.getKieRuntime(), new Answers[]{
-        Answers.NEVER, Answers.TODAYS});
-end
-
-rule "RESTRAINING_ORDER_INVOLVED/NO"
-    when
-        Question: Question(question == QuestionSet.RESTRAINING_ORDER_INVOLVED && answer == Answers.NO)
-    then
-        showMessage(Messages.PROBABLY_BETTER_NOT, kcontext.getKieRuntime());
+        showMessage(Messages.LOCAL_MOTORS_RALLY_FIGHTER, kcontext.getKieRuntime());
 
 end
 
-rule "ARE_YOU_CRAZY_B/I_DONT_THINK_SO"
+rule "WHAT_DO_YOU_LIKE_TO_DO_WHEN_OFFROAD/CLIMB_ROCKS_AND_MAKE_YOUTUBE_VIDEOS"
     when
-        Question: Question(question == QuestionSet.ARE_YOU_CRAZY_B && answer == Answers.I_DONT_THINK_SO)
+        Question: Question(question == QuestionSet.WHAT_DO_YOU_LIKE_TO_DO_WHEN_OFFROAD && answer == Answers.CLIMB_ROCKS_AND_MAKE_YOUTUBE_VIDEOS)
     then
-        showMessage(Messages.HANDS, kcontext.getKieRuntime());
+        askUserWithOtherOptions(QuestionSet.DO_YOU_LIKE_FLAT_WINDSHIELDS, kcontext.getKieRuntime(), new Answers[]{
+        Answers.ONLY_IF_I_HAVE_3_WIPERS, Answers.THE_FLATTER_THE_BETTER});
 end
-
-rule "ARE_YOU_CRAZY_B/MAYBE_A_LITTLE"
-    when
-        Question: Question(question == QuestionSet.ARE_YOU_CRAZY_B && answer == Answers.MAYBE_A_LITTLE)
-    then
-        showMessage(Messages.PROBABLY_BETTER_NOT, kcontext.getKieRuntime());
 
-end
-rule "KIDS_BACK/YES"
+rule "DO_YOU_LIKE_FLAT_WINDSHIELDS/ONLY_IF_I_HAVE_3_WIPERS"
     when
-        Question: Question(question == QuestionSet.KIDS_BACK && answer == Answers.YES)
+        Question: Question(question == QuestionSet.DO_YOU_LIKE_FLAT_WINDSHIELDS && answer == Answers.ONLY_IF_I_HAVE_3_WIPERS)
     then
-        showMessage(Messages.DO_WHATEVER_IT_TAKES, kcontext.getKieRuntime());
-
+        showMessage(Messages.TOYOTA_FJ_CRUISER, kcontext.getKieRuntime());
 end
 
-rule "KIDS_BACK/NO"
+rule "DO_YOU_LIKE_FLAT_WINDSHIELDS/THE_FLATTER_THE_BETTER"
     when
-        Question: Question(question == QuestionSet.KIDS_BACK && answer == Answers.NO)
+        Question: Question(question == QuestionSet.DO_YOU_LIKE_FLAT_WINDSHIELDS && answer == Answers.THE_FLATTER_THE_BETTER)
     then
-        showMessage(Messages.PROBABLY_BETTER_NOT, kcontext.getKieRuntime());
-
+        showMessage(Messages.JEEP_WRANGLER_UNLTD, kcontext.getKieRuntime());
 end
 
-rule "WHERE_DO_YOU_LIVE/YES"
+rule "WHAT_DO_YOU_LIKE_TO_DO_WHEN_OFFROAD/GO_CAMPING_EAT_GRANOLA_OR_DEER_MEAT"
     when
-        Question: Question(question == QuestionSet.WHERE_DO_YOU_LIVE && answer == Answers.YES)
+        Question: Question(question == QuestionSet.WHAT_DO_YOU_LIKE_TO_DO_WHEN_OFFROAD && answer == Answers.GO_CAMPING_EAT_GRANOLA_OR_DEER_MEAT)
     then
-        showMessage(Messages.DO_WHATEVER_IT_TAKES, kcontext.getKieRuntime());
-
+        askUserWithOtherOptions(QuestionSet.DO_YOU_LIKE_TO_HAUL_ASS, kcontext.getKieRuntime(), new Answers[]{
+        Answers.OH_GOD_YES, Answers.WHY_ITS_BEAUTIFUL_OUT_HERE_WITH_THE_BEARS});
 end
 
-rule "WHERE_DO_YOU_LIVE/NO"
+rule "DO_YOU_LIKE_TO_HAUL_ASS/OH_GOD_YES"
     when
-        Question: Question(question == QuestionSet.WHERE_DO_YOU_LIVE && answer == Answers.NO)
+        Question: Question(question == QuestionSet.DO_YOU_LIKE_TO_HAUL_ASS && answer == Answers.OH_GOD_YES)
     then
-        showMessage(Messages.PROBABLY_BETTER_NOT, kcontext.getKieRuntime());
-
+        showMessage(Messages.MERCEDES_G63_AMG, kcontext.getKieRuntime());
 end
 
-rule "HEALTH_RISK/YES"
+rule "DO_YOU_LIKE_TO_HAUL_ASS/WHY_ITS_BEAUTIFUL_OUT_HERE_WITH_THE_BEARS"
     when
-        Question: Question(question == QuestionSet.HEALTH_RISK && answer == Answers.YES)
+        Question: Question(question == QuestionSet.DO_YOU_LIKE_TO_HAUL_ASS && answer == Answers.OH_GOD_YES)
     then
-        showMessage(Messages.PROBABLY_BETTER_NOT, kcontext.getKieRuntime());
-
+        showMessage(Messages.SUBARU_FORESTER, kcontext.getKieRuntime());
 end
 
-rule "HEALTH_RISK/NO"
+rule "WHAT_DO_YOU_LIKE_TO_DO_WHEN_OFFROAD/UNDERTAKE_EXPEDITIONS"
     when
-        Question: Question(question == QuestionSet.HEALTH_RISK && answer == Answers.NO)
+        Question: Question(question == QuestionSet.WHAT_DO_YOU_LIKE_TO_DO_WHEN_OFFROAD && answer == Answers.UNDERTAKE_EXPEDITIONS)
     then
-        showMessage(Messages.HANDS, kcontext.getKieRuntime());
-
+        askUserWithOtherOptions(QuestionSet.WHERE_ARE_THESE_EXPEDITIONS_TO, kcontext.getKieRuntime(), new Answers[]{
+        Answers.YOU_KNOW_THE_ARCTIC_ACROSS_AFRICA_NEPAL, Answers.THAT_BEACH_WHERE_YOU_CAN_SEE_BOOBS});
 end
 
-rule "JOB_SUCKS/YES"
+rule "WHERE_ARE_THESE_EXPEDITIONS_TO/YOU_KNOW_THE_ARCTIC_ACROSS_AFRICA_NEPAL"
     when
-        Question: Question(question == QuestionSet.JOB_SUCKS && answer == Answers.YES)
+        Question: Question(question == QuestionSet.WHERE_ARE_THESE_EXPEDITIONS_TO && answer == Answers.YOU_KNOW_THE_ARCTIC_ACROSS_AFRICA_NEPAL)
     then
-        showMessage(Messages.BONE, kcontext.getKieRuntime());
+        showMessage(Messages.LAND_ROVER_LR4, kcontext.getKieRuntime());
 end
 
-rule "JOB_SUCKS/NO"
+rule "WHERE_ARE_THESE_EXPEDITIONS_TO/THAT_BEACH_WHERE_YOU_CAN_SEE_BOOBS"
     when
-        Question: Question(question == QuestionSet.JOB_SUCKS && answer == Answers.NO)
+        Question: Question(question == QuestionSet.WHERE_ARE_THESE_EXPEDITIONS_TO && answer == Answers.YOU_KNOW_THE_ARCTIC_ACROSS_AFRICA_NEPAL)
     then
-        showMessage(Messages.PROBABLY_BETTER_NOT, kcontext.getKieRuntime());
+        showMessage(Messages.GMC_YUKON, kcontext.getKieRuntime());
 end
 
-rule "WHERE_DO_YOU_TEACH/COLLEGE"
+rule "WHAT_DO_YOU_LIKE_TO_DO_WHEN_OFFROAD/RALLY"
     when
-        Question: Question(question == QuestionSet.WHERE_DO_YOU_TEACH && answer == Answers.COLLEGE)
+        Question: Question(question == QuestionSet.WHAT_DO_YOU_LIKE_TO_DO_WHEN_OFFROAD && answer == Answers.RALLY)
     then
-        askUserWithOtherOptions(QuestionSet.JOB_SUCKS, kcontext.getKieRuntime(), new Answers[]{
-        Answers.YES, Answers.NO});
+        askUserWithOtherOptions(QuestionSet.REALLY_RALLY, kcontext.getKieRuntime(), new Answers[]{
+        Answers.AS_FAR_AS_YOU_KNOW, Answers.I_PRETENDED_OKAY});
 end
 
-rule "WHERE_DO_YOU_TEACH/ANYTHING_BELOW_COLLEGE"
+rule "REALLY_RALLY/AS_FAR_AS_YOU_KNOW"
     when
-        Question: Question(question == QuestionSet.WHERE_DO_YOU_TEACH && answer == Answers.ANYTHING_BELOW_COLLEGE)
+        Question: Question(question == QuestionSet.REALLY_RALLY && answer == Answers.AS_FAR_AS_YOU_KNOW)
     then
-        askUserWithOtherOptions(QuestionSet.SEX_WITH_MINOR, kcontext.getKieRuntime(), new Answers[]{
-        Answers.NO_OF_COURSE, Answers.YEAH});
+        showMessage(Messages.AUDI_RS_Q3, kcontext.getKieRuntime());
 end
 
-rule "WHO_IS_THIS/BROTHER_SISTER"
+rule "REALLY_RALLY/I_PRETENDED_OKAY"
     when
-        Question: Question(question == QuestionSet.WHO_IS_THIS && answer == Answers.BROTHER_SISTER)
+        Question: Question(question == QuestionSet.REALLY_RALLY && answer == Answers.I_PRETENDED_OKAY)
     then
-        showMessage(Messages.ABSOLUTELY_NOT, kcontext.getKieRuntime());
+        showMessage(Messages.VW_TIGUAN, kcontext.getKieRuntime());
 end
 
-rule "WHO_IS_THIS/SECOND_COUSIN"
+rule "WILL_YOU_EVER_ACTUALLY_TAKE_IT_OFF_ROAD/SOMETIMES_FOR_WORK"
     when
-        Question: Question(question == QuestionSet.WHO_IS_THIS && answer == Answers.SECOND_COUSIN)
+        Question: Question(question == QuestionSet.WILL_YOU_EVER_ACTUALLY_TAKE_IT_OFF_ROAD && answer == Answers.SOMETIMES_FOR_WORK)
     then
-        askUserWithOtherOptions(QuestionSet.REALLY_IN_LOVE_OR_DESPERETA, kcontext.getKieRuntime(), new Answers[]{
-        Answers.GOD_DEPERATE, Answers.NO_ITS_LOVE});
+        askUserWithOtherOptions(QuestionSet.WHATS_YOUR_WORK, kcontext.getKieRuntime(), new Answers[]{
+        Answers.CAMERA_CAR_DRIVER, Answers.MAN_STUFF_WITH_HARD_HATS});
 end
 
-rule "WHO_IS_THIS/BROTHER_WIFE_COUSIN"
+rule "WHATS_YOUR_WORK/CAMERA_CAR_DRIVER"
     when
-        Question: Question(question == QuestionSet.WHO_IS_THIS && answer == Answers.BROTHER_WIFE_COUSIN)
+        Question: Question(question == QuestionSet.WHATS_YOUR_WORK && answer == Answers.CAMERA_CAR_DRIVER)
     then
-        showMessage(Messages.MAKE_IT_HAPPEN_CAPTAIN, kcontext.getKieRuntime());
+        showMessage(Messages.PORSCHE_CAYENNE, kcontext.getKieRuntime());
 end
 
-rule "WHO_IS_THIS/CHILD"
+rule "WHATS_YOUR_WORK/MAN_STUFF_WITH_HARD_HATS"
     when
-        Question: Question(question == QuestionSet.WHO_IS_THIS && answer == Answers.CHILD)
+        Question: Question(question == QuestionSet.WHATS_YOUR_WORK && answer == Answers.MAN_STUFF_WITH_HARD_HATS)
     then
-        askUserWithOtherOptions(QuestionSet.ARE_THE_PARENTS_STILL_MARIED, kcontext.getKieRuntime(), new Answers[]{
-        Answers.YES, Answers.NO});
+        showMessage(Messages.CHEVY_SUBURBAN, kcontext.getKieRuntime());
 end
 
-rule "LONELY/A_LITTLE"
+rule "WILL_YOU_EVER_ACTUALLY_TAKE_IT_OFF_ROAD/NOT_IF_I_CAN_HELP"
     when
-        Question: Question(question == QuestionSet.LONELY && answer == Answers.A_LITTLE)
+        Question: Question(question == QuestionSet.WILL_YOU_EVER_ACTUALLY_TAKE_IT_OFF_ROAD && answer == Answers.NOT_IF_I_CAN_HELP)
     then
-        showMessage(Messages.NUT, kcontext.getKieRuntime());
+        askUserWithOtherOptions(QuestionSet.SO_WAIT_WHY_ARE_YOU_BUYING_AN_SUV, kcontext.getKieRuntime(), new Answers[]{
+        Answers.I_LIKE_THE_STYLE, Answers.GOT_KIDS_DONT_WANT_MINIVAN, Answers.BIG_MAKES_ME_FEEL_SAFE, Answers.MAYBE_ILL_GO_OFFROAD, Answers.I_WANT_TO_DO_THINGS_I_CANT_DO_IN_CAR});
 end
 
-rule "LONELY/NOT_AT_ALL"
+rule "SO_WAIT_WHY_ARE_YOU_BUYING_AN_SUV/I_LIKE_THE_STYLE"
     when
-        Question: Question(question == QuestionSet.LONELY && answer == Answers.NOT_AT_ALL)
+        Question: Question(question == QuestionSet.SO_WAIT_WHY_ARE_YOU_BUYING_AN_SUV && answer == Answers.I_LIKE_THE_STYLE)
     then
-        showMessage(Messages.BAD_LIAR, kcontext.getKieRuntime());
+        askUserWithOtherOptions(QuestionSet.WHAT_DO_YOU_LIKE_ABOUT_THE_STYLE, kcontext.getKieRuntime(), new Answers[]{
+        Answers.I_GUESS_I_WANT_A_GIANT_MINI, Answers.BUT_MUCH_LESS_USEFUL,Answers.IM_INTO_CARTOONISH_LOOKING_GIANT_WHEELED_HATCHBACKS, Answers.THEY_MAKE_ME_FEEL_THOUGH, Answers.I_ALWAYS_WANTED_A_VEHICROSS});
 end
 
-rule "ARE_YOU_CRAZY/I_DONT_THINK_SO"
+rule "WHAT_DO_YOU_LIKE_ABOUT_THE_STYLE/I_GUESS_I_WANT_A_GIANT_MINI"
     when
-        Question: Question(question == QuestionSet.ARE_YOU_CRAZY && answer == Answers.I_DONT_THINK_SO)
+        Question: Question(question == QuestionSet.WHAT_DO_YOU_LIKE_ABOUT_THE_STYLE && answer == Answers.I_GUESS_I_WANT_A_GIANT_MINI)
     then
-        showMessage(Messages.BAD_LIAR, kcontext.getKieRuntime());
+        showMessage(Messages.FORD_FLEX, kcontext.getKieRuntime());
 end
 
-rule "ARE_YOU_CRAZY/A_LITTLE"
+rule "WHAT_DO_YOU_LIKE_ABOUT_THE_STYLE/BUT_MUCH_LESS_USEFUL"
     when
-        Question: Question(question == QuestionSet.ARE_YOU_CRAZY && answer == Answers.A_LITTLE)
+        Question: Question(question == QuestionSet.WHAT_DO_YOU_LIKE_ABOUT_THE_STYLE && answer == Answers.BUT_MUCH_LESS_USEFUL)
     then
-        showMessage(Messages.NUT, kcontext.getKieRuntime());
+        showMessage(Messages.MINI_PACEMAN, kcontext.getKieRuntime());
 end
 
-rule "GETTING_HIGH/YES"
+rule "WHAT_DO_YOU_LIKE_ABOUT_THE_STYLE/IM_INTO_CARTOONISH_LOOKING_GIANT_WHEELED_HATCHBACKS"
     when
-        Question: Question(question == QuestionSet.GETTING_HIGH && answer == Answers.YES)
+        Question: Question(question == QuestionSet.WHAT_DO_YOU_LIKE_ABOUT_THE_STYLE && answer == Answers.IM_INTO_CARTOONISH_LOOKING_GIANT_WHEELED_HATCHBACKS)
     then
-        showMessage(Messages.NUT, kcontext.getKieRuntime());
+        showMessage(Messages.HONDA_CROSSTOUR, kcontext.getKieRuntime());
 end
 
-rule "GETTING_HIGH/NO"
+rule "WHAT_DO_YOU_LIKE_ABOUT_THE_STYLE/I_ALWAYS_WANTED_A_VEHICROSS"
     when
-        Question: Question(question == QuestionSet.GETTING_HIGH && answer == Answers.NO)
+        Question: Question(question == QuestionSet.WHAT_DO_YOU_LIKE_ABOUT_THE_STYLE && answer == Answers.I_ALWAYS_WANTED_A_VEHICROSS)
     then
-        showMessage(Messages.PROBABLY_BETTER_NOT, kcontext.getKieRuntime());
+        showMessage(Messages.NISSAN_JUKE, kcontext.getKieRuntime());
 end
 
-rule "LIKE_DRAMA/YES"
+rule "WHAT_DO_YOU_LIKE_ABOUT_THE_STYLE/THEY_MAKE_ME_FEEL_THOUGH"
     when
-        Question: Question(question == QuestionSet.LIKE_DRAMA && answer == Answers.YES)
+        Question: Question(question == QuestionSet.WHAT_DO_YOU_LIKE_ABOUT_THE_STYLE && answer == Answers.THEY_MAKE_ME_FEEL_THOUGH)
     then
-        showMessage(Messages.AWESOME_LEAVING, kcontext.getKieRuntime());
+        askUserWithOtherOptions(QuestionSet.WHAT_KIND_OF_TOUGH, kcontext.getKieRuntime(), new Answers[]{
+        Answers.LIKE_A_GOVERNMENT_OFFICIAL, Answers.LIKE_IM_RICH_AND_IMPORTANT, Answers.LIKE_IM_EXCLUSIVE, Answers.LIKE_IM_A_LITTLE_FAMOUS_AND_TASTELESS, Answers.LIKE_IM_EROTICALLY_DRAWN_TO_A_CYBORG_BULL});
 end
 
-rule "LIKE_DRAMA/NO"
+rule "WHAT_KIND_OF_TOUGH/LIKE_A_GOVERNMENT_OFFICIAL"
     when
-        Question: Question(question == QuestionSet.LIKE_DRAMA && answer == Answers.NO)
+        Question: Question(question == QuestionSet.WHAT_KIND_OF_TOUGH && answer == Answers.LIKE_A_GOVERNMENT_OFFICIAL)
     then
-        showMessage(Messages.PROBABLY_BETTER_NOT, kcontext.getKieRuntime());
+        showMessage(Messages.CHEVY_TAHOE, kcontext.getKieRuntime());
 end
 
-rule "SEX_WITH_OTHER_PEOPLE/YES"
+rule "WHAT_KIND_OF_TOUGH/LIKE_IM_RICH_AND_IMPORTANT"
     when
-        Question: Question(question == QuestionSet.SEX_WITH_OTHER_PEOPLE && answer == Answers.YES)
+        Question: Question(question == QuestionSet.WHAT_KIND_OF_TOUGH && answer == Answers.LIKE_IM_RICH_AND_IMPORTANT)
     then
-        showMessage(Messages.WELL_PRETTY_OBVIOUS, kcontext.getKieRuntime());
+        showMessage(Messages.LEXUS_LX, kcontext.getKieRuntime());
 end
 
-rule "SEX_WITH_OTHER_PEOPLE/NO"
+rule "WHAT_KIND_OF_TOUGH/LIKE_IM_A_LITTLE_FAMOUS_AND_TASTELESS"
     when
-        Question: Question(question == QuestionSet.SEX_WITH_OTHER_PEOPLE && answer == Answers.NO)
+        Question: Question(question == QuestionSet.WHAT_KIND_OF_TOUGH && answer == Answers.LIKE_IM_A_LITTLE_FAMOUS_AND_TASTELESS)
     then
-        showMessage(Messages.PROBABLY_BETTER_NOT, kcontext.getKieRuntime());
+        showMessage(Messages.LINCOLN_NAVIGATOR, kcontext.getKieRuntime());
 end
 
-rule "HAVING_CHOICE/YES"
+rule "WHAT_KIND_OF_TOUGH/LIKE_IM_EROTICALLY_DRAWN_TO_A_CYBORG_BULL"
     when
-        Question: Question(question == QuestionSet.HAVING_CHOICE && answer == Answers.YES)
+        Question: Question(question == QuestionSet.WHAT_KIND_OF_TOUGH && answer == Answers.LIKE_IM_EROTICALLY_DRAWN_TO_A_CYBORG_BULL)
     then
-        showMessage(Messages.PROBABLY_BETTER_NOT, kcontext.getKieRuntime());
+        showMessage(Messages.INFINITI_QX56, kcontext.getKieRuntime());
 end
 
-rule "HAVING_CHOICE/NO"
+rule "WHAT_KIND_OF_TOUGH/LIKE_IM_EXCLUSIVE"
     when
-        Question: Question(question == QuestionSet.HAVING_CHOICE && answer == Answers.NO)
+        Question: Question(question == QuestionSet.WHAT_KIND_OF_TOUGH && answer == Answers.LIKE_IM_EXCLUSIVE)
     then
-        showMessage(Messages.WELL_PRETTY_OBVIOUS, kcontext.getKieRuntime());
+        askUserWithOtherOptions(QuestionSet.LIKE_UNICORN_LEVEL_EXCLUSIVE, kcontext.getKieRuntime(), new Answers[]{
+        Answers.YES, Answers.I_DONT_WANNA_WAIT_FOREVER});
 end
 
-rule "THE_ONLY_ONE_WHO_LOVES_YOU/NEVER"
+rule "LIKE_UNICORN_LEVEL_EXCLUSIVE/YES"
     when
-        Question: Question(question == QuestionSet.THE_ONLY_ONE_WHO_LOVES_YOU && answer == Answers.NEVER)
+        Question: Question(question == QuestionSet.LIKE_UNICORN_LEVEL_EXCLUSIVE && answer == Answers.YES)
     then
-        showMessage(Messages.PROBABLY_BETTER_NOT, kcontext.getKieRuntime());
+        showMessage(Messages.LAMBORGHINI_URUS, kcontext.getKieRuntime());
 end
 
-rule "THE_ONLY_ONE_WHO_LOVES_YOU/TODAYS"
+rule "LIKE_UNICORN_LEVEL_EXCLUSIVE/I_DONT_WANNA_WAIT_FOREVER"
     when
-        Question: Question(question == QuestionSet.THE_ONLY_ONE_WHO_LOVES_YOU && answer == Answers.TODAYS)
+        Question: Question(question == QuestionSet.LIKE_UNICORN_LEVEL_EXCLUSIVE && answer == Answers.I_DONT_WANNA_WAIT_FOREVER)
     then
-        showMessage(Messages.HANDS, kcontext.getKieRuntime());
+        showMessage(Messages.AUDI_Q7, kcontext.getKieRuntime());
 end
 
-rule "SEX_WITH_MINOR/NO_OF_COURSE"
+rule "SO_WAIT_WHY_ARE_YOU_BUYING_AN_SUV/GOT_KIDS_DONT_WANT_MINIVAN"
     when
-        Question: Question(question == QuestionSet.SEX_WITH_MINOR && answer == Answers.NO_OF_COURSE)
+        Question: Question(question == QuestionSet.SO_WAIT_WHY_ARE_YOU_BUYING_AN_SUV && answer == Answers.GOT_KIDS_DONT_WANT_MINIVAN)
     then
-        showMessage(Messages.THOUGHT_CRIME, kcontext.getKieRuntime());
+        askUserWithOtherOptions(QuestionSet.WHY_NOT_A_MINIVAN, kcontext.getKieRuntime(), new Answers[]{
+        Answers.I_WANT_SOMETHING_FUN_TO_DRIVE, Answers.JUST_SOME_GENERAL_STIGMA_THING});
 end
 
-rule "SEX_WITH_MINOR/YEAH"
+rule "WHY_NOT_A_MINIVAN/I_WANT_SOMETHING_FUN_TO_DRIVE"
     when
-        Question: Question(question == QuestionSet.SEX_WITH_MINOR && answer == Answers.YEAH)
+        Question: Question(question == QuestionSet.LIKE_UNICORN_LEVEL_EXCLUSIVE && answer == Answers.I_WANT_SOMETHING_FUN_TO_DRIVE)
     then
-        showMessage(Messages.THOUGHT_CRIME, kcontext.getKieRuntime());
+        showMessage(Messages.MAZDA_CX5, kcontext.getKieRuntime());
 end
 
-rule "REALLY_IN_LOVE_OR_DESPERETA/GOD_DEPERATE"
+rule "WHY_NOT_A_MINIVAN/JUST_SOME_GENERAL_STIGMA_THING"
     when
-        Question: Question(question == QuestionSet.REALLY_IN_LOVE_OR_DESPERETA && answer == Answers.GOD_DEPERATE)
+        Question: Question(question == QuestionSet.LIKE_UNICORN_LEVEL_EXCLUSIVE && answer == Answers.JUST_SOME_GENERAL_STIGMA_THING)
     then
-        showMessage(Messages.HANG_IN_THERE, kcontext.getKieRuntime());
+        showMessage(Messages.HYUNDAI_TUCSON, kcontext.getKieRuntime());
 end
 
-rule "REALLY_IN_LOVE_OR_DESPERETA/NO_ITS_LOVE"
+rule "SO_WAIT_WHY_ARE_YOU_BUYING_AN_SUV/BIG_MAKES_ME_FEEL_SAFE"
     when
-        Question: Question(question == QuestionSet.REALLY_IN_LOVE_OR_DESPERETA && answer == Answers.NO_ITS_LOVE)
+        Question: Question(question == QuestionSet.SO_WAIT_WHY_ARE_YOU_BUYING_AN_SUV && answer == Answers.BIG_MAKES_ME_FEEL_SAFE)
     then
-        askUserWithOtherOptions(QuestionSet.DO_YOU_LIVE_IN_A_SPARSELY, kcontext.getKieRuntime(), new Answers[]{
-        Answers.YES, Answers.NO});
+        showMessage(Messages.VOLVO_XC60, kcontext.getKieRuntime());
 end
 
-rule "ARE_THE_PARENTS_STILL_MARIED/YES"
+rule "SO_WAIT_WHY_ARE_YOU_BUYING_AN_SUV/MAYBE_ILL_GO_OFFROAD"
     when
-        Question: Question(question == QuestionSet.ARE_THE_PARENTS_STILL_MARIED && answer == Answers.YES)
+        Question: Question(question == QuestionSet.SO_WAIT_WHY_ARE_YOU_BUYING_AN_SUV && answer == Answers.MAYBE_ILL_GO_OFFROAD)
     then
-        askUserWithOtherOptions(QuestionSet.ARE_YOU_WOODY_ALLEN, kcontext.getKieRuntime(), new Answers[]{
-        Answers.YES, Answers.NO});
+        askUserWithOtherOptions(QuestionSet.WILL_YOU_REALLY, kcontext.getKieRuntime(), new Answers[]{
+        Answers.NO_FUCK_IT_GIMME_AN_EV});
 end
 
-rule "ARE_THE_PARENTS_STILL_MARIED/NO"
+rule "WILL_YOU_REALLY/NO_FUCK_IT_GIMME_AN_EV"
     when
-        Question: Question(question == QuestionSet.ARE_THE_PARENTS_STILL_MARIED && answer == Answers.NO)
+        Question: Question(question == QuestionSet.WILL_YOU_REALLY && answer == Answers.NO_FUCK_IT_GIMME_AN_EV)
     then
-        askUserWithOtherOptions(QuestionSet.DID_YOU_GROW_UP_TOGETHER, kcontext.getKieRuntime(), new Answers[]{
-        Answers.YES, Answers.NO});
+        showMessage(Messages.TOYOTA_RAV4_EV, kcontext.getKieRuntime());
 end
 
-rule "DO_YOU_LIVE_IN_A_SPARSELY/YES"
+rule "SO_WAIT_WHY_ARE_YOU_BUYING_AN_SUV/I_WANT_TO_DO_THINGS_I_CANT_DO_IN_CAR"
     when
-        Question: Question(question == QuestionSet.DO_YOU_LIVE_IN_A_SPARSELY && answer == Answers.YES)
+        Question: Question(question == QuestionSet.SO_WAIT_WHY_ARE_YOU_BUYING_AN_SUV && answer == Answers.I_WANT_TO_DO_THINGS_I_CANT_DO_IN_CAR)
     then
-        showMessage(Messages.I_GUESS_ITS_OK, kcontext.getKieRuntime());
+        askUserWithOtherOptions(QuestionSet.WHAT_KIND_OF_THINGS, kcontext.getKieRuntime(), new Answers[]{
+        Answers.DRIVE_REALLY_FAST_IN_SOMETHING_REALLY_TALL, Answers.DRIVE_SOMETHING_SO_911S_CAS_STILL_BE_MADE, Answers.DRIVE_SIX_PEOPLE_ALL_IN_PILOTS_CHAIRS, Answers.GO_ANTIQUING_OFF_ROAD_IN_AN_ORANGE_CAR, Answers.DRIVE_SOMETHING_UNPRONOUNCABLE});
 end
 
-rule "DO_YOU_LIVE_IN_A_SPARSELY/NO"
+rule "WHAT_KIND_OF_THINGS/DRIVE_REALLY_FAST_IN_SOMETHING_REALLY_TALL"
     when
-        Question: Question(question == QuestionSet.DO_YOU_LIVE_IN_A_SPARSELY && answer == Answers.NO)
+        Question: Question(question == QuestionSet.WHAT_KIND_OF_THINGS && answer == Answers.DRIVE_REALLY_FAST_IN_SOMETHING_REALLY_TALL)
     then
-        showMessage(Messages.HANG_IN_THERE, kcontext.getKieRuntime());
+        showMessage(Messages.JEEP_GRAND_CHEROKEE_SRT8, kcontext.getKieRuntime());
 end
 
-rule "ARE_YOU_WOODY_ALLEN/YES"
+rule "WHAT_KIND_OF_THINGS/DRIVE_SOMETHING_SO_911S_CAS_STILL_BE_MADE"
     when
-        Question: Question(question == QuestionSet.ARE_YOU_WOODY_ALLEN && answer == Answers.YES)
+        Question: Question(question == QuestionSet.WHAT_KIND_OF_THINGS && answer == Answers.DRIVE_SOMETHING_SO_911S_CAS_STILL_BE_MADE)
     then
-        showMessage(Messages.MAKE_IT_HAPPEN_CAPTAIN, kcontext.getKieRuntime());
+        showMessage(Messages.PORSCHE_CAYENNE, kcontext.getKieRuntime());
 end
 
-rule "ARE_YOU_WOODY_ALLEN/NO"
+rule "WHAT_KIND_OF_THINGS/DRIVE_SIX_PEOPLE_ALL_IN_PILOTS_CHAIRS"
     when
-        Question: Question(question == QuestionSet.ARE_YOU_WOODY_ALLEN && answer == Answers.NO)
+        Question: Question(question == QuestionSet.WHAT_KIND_OF_THINGS && answer == Answers.DRIVE_SIX_PEOPLE_ALL_IN_PILOTS_CHAIRS)
     then
-        showMessage(Messages.ABSOLUTELY_NOT, kcontext.getKieRuntime());
+        showMessage(Messages.HYUNDAI_SANTA_FE_LTD, kcontext.getKieRuntime());
 end
 
-rule "DID_YOU_GROW_UP_TOGETHER/YES"
+rule "WHAT_KIND_OF_THINGS/GO_ANTIQUING_OFF_ROAD_IN_AN_ORANGE_CAR"
     when
-        Question: Question(question == QuestionSet.DID_YOU_GROW_UP_TOGETHER && answer == Answers.YES)
+        Question: Question(question == QuestionSet.WHAT_KIND_OF_THINGS && answer == Answers.GO_ANTIQUING_OFF_ROAD_IN_AN_ORANGE_CAR)
     then
-        showMessage(Messages.ABSOLUTELY_NOT, kcontext.getKieRuntime());
+        showMessage(Messages.SUBARU_XV_CROSSTREK, kcontext.getKieRuntime());
 end
 
-rule "DID_YOU_GROW_UP_TOGETHER/NO"
+rule "WHAT_KIND_OF_THINGS/DRIVE_SOMETHING_UNPRONOUNCABLE"
     when
-        Question: Question(question == QuestionSet.DID_YOU_GROW_UP_TOGETHER && answer == Answers.NO)
+        Question: Question(question == QuestionSet.WHAT_KIND_OF_THINGS && answer == Answers.DRIVE_SOMETHING_UNPRONOUNCABLE)
     then
-        showMessage(Messages.I_GUESS_ITS_OK, kcontext.getKieRuntime());
+        showMessage(Messages.VW_TOUAREG, kcontext.getKieRuntime());
 end

@@ -10,7 +10,338 @@ global JFrame frame
 rule init0
     when
     then
-        askUserWithOtherOptions(QuestionSet.WHAT_KIND_OF_RELATION, kcontext.getKieRuntime(), new Answers[]{
-        	Answers.PROFESSIONAL, Answers.PERSONAL
+        askUserWithOtherOptions(QuestionSet.WILL_YOU_EVER_ACTUALLY_TAKE_IT_OFF_ROAD, kcontext.getKieRuntime(), new Answers[]{
+        	Answers.NOT_IF_I_CAN_HELP, Answers.ROADS_ARE_FOR_CHOADS, Answers.SOMETIMES_FOR_WORK
         });
+end
+
+rule "WILL_YOU_EVER_ACTUALLY_TAKE_IT_OFF_ROAD/ROADS_ARE_FOR_CHOADS"
+    when
+        Question: Question(question == QuestionSet.WILL_YOU_EVER_ACTUALLY_TAKE_IT_OFF_ROAD && answer == Answers.ROADS_ARE_FOR_CHOADS)
+    then
+        askUserWithOtherOptions(QuestionSet.WHAT_DO_YOU_LIKE_TO_DO_WHEN_OFFROAD, kcontext.getKieRuntime(), new Answers[]{
+        Answers.BE_AWESOME_OG_AND_IM_SUPER_RICH, Answers.CLIMB_ROCKS_AND_MAKE_YOUTUBE_VIDEOS,Answers.GO_CAMPING_EAT_GRANOLA_OR_DEER_MEAT, Answers.UNDERTAKE_EXPEDITIONS, Answers.RALLY });
+end
+
+rule "WHAT_DO_YOU_LIKE_TO_DO_WHEN_OFFROAD/BE_AWESOME_OG_AND_IM_SUPER_RICH"
+    when
+        Question: Question(question == QuestionSet.WHAT_DO_YOU_LIKE_TO_DO_WHEN_OFFROAD && answer == Answers.BE_AWESOME_OG_AND_IM_SUPER_RICH)
+    then
+        askUserWithOtherOptions(QuestionSet.OLD_SCHOOL_OR_NEW, kcontext.getKieRuntime(), new Answers[]{
+        Answers.OLD_IS_GOLD, Answers.NEW_NEW_NEW});
+end
+
+rule "OLD_SCHOOL_OR_NEW/OLD_IS_GOLD"
+    when
+        Question: Question(question == QuestionSet.OLD_SCHOOL_OR_NEW && answer == Answers.OLD_IS_GOLD)
+    then
+        showMessage(Messages.ICON_FJ, kcontext.getKieRuntime());
+
+end
+
+rule "OLD_SCHOOL_OR_NEW/NEW_NEW_NEW"
+    when
+        Question: Question(question == QuestionSet.OLD_SCHOOL_OR_NEW && answer == Answers.NEW_NEW_NEW)
+    then
+        showMessage(Messages.LOCAL_MOTORS_RALLY_FIGHTER, kcontext.getKieRuntime());
+
+end
+
+rule "WHAT_DO_YOU_LIKE_TO_DO_WHEN_OFFROAD/CLIMB_ROCKS_AND_MAKE_YOUTUBE_VIDEOS"
+    when
+        Question: Question(question == QuestionSet.WHAT_DO_YOU_LIKE_TO_DO_WHEN_OFFROAD && answer == Answers.CLIMB_ROCKS_AND_MAKE_YOUTUBE_VIDEOS)
+    then
+        askUserWithOtherOptions(QuestionSet.DO_YOU_LIKE_FLAT_WINDSHIELDS, kcontext.getKieRuntime(), new Answers[]{
+        Answers.ONLY_IF_I_HAVE_3_WIPERS, Answers.THE_FLATTER_THE_BETTER});
+end
+
+rule "DO_YOU_LIKE_FLAT_WINDSHIELDS/ONLY_IF_I_HAVE_3_WIPERS"
+    when
+        Question: Question(question == QuestionSet.DO_YOU_LIKE_FLAT_WINDSHIELDS && answer == Answers.ONLY_IF_I_HAVE_3_WIPERS)
+    then
+        showMessage(Messages.TOYOTA_FJ_CRUISER, kcontext.getKieRuntime());
+end
+
+rule "DO_YOU_LIKE_FLAT_WINDSHIELDS/THE_FLATTER_THE_BETTER"
+    when
+        Question: Question(question == QuestionSet.DO_YOU_LIKE_FLAT_WINDSHIELDS && answer == Answers.THE_FLATTER_THE_BETTER)
+    then
+        showMessage(Messages.JEEP_WRANGLER_UNLTD, kcontext.getKieRuntime());
+end
+
+rule "WHAT_DO_YOU_LIKE_TO_DO_WHEN_OFFROAD/GO_CAMPING_EAT_GRANOLA_OR_DEER_MEAT"
+    when
+        Question: Question(question == QuestionSet.WHAT_DO_YOU_LIKE_TO_DO_WHEN_OFFROAD && answer == Answers.GO_CAMPING_EAT_GRANOLA_OR_DEER_MEAT)
+    then
+        askUserWithOtherOptions(QuestionSet.DO_YOU_LIKE_TO_HAUL_ASS, kcontext.getKieRuntime(), new Answers[]{
+        Answers.OH_GOD_YES, Answers.WHY_ITS_BEAUTIFUL_OUT_HERE_WITH_THE_BEARS});
+end
+
+rule "DO_YOU_LIKE_TO_HAUL_ASS/OH_GOD_YES"
+    when
+        Question: Question(question == QuestionSet.DO_YOU_LIKE_TO_HAUL_ASS && answer == Answers.OH_GOD_YES)
+    then
+        showMessage(Messages.MERCEDES_G63_AMG, kcontext.getKieRuntime());
+end
+
+rule "DO_YOU_LIKE_TO_HAUL_ASS/WHY_ITS_BEAUTIFUL_OUT_HERE_WITH_THE_BEARS"
+    when
+        Question: Question(question == QuestionSet.DO_YOU_LIKE_TO_HAUL_ASS && answer == Answers.OH_GOD_YES)
+    then
+        showMessage(Messages.SUBARU_FORESTER, kcontext.getKieRuntime());
+end
+
+rule "WHAT_DO_YOU_LIKE_TO_DO_WHEN_OFFROAD/UNDERTAKE_EXPEDITIONS"
+    when
+        Question: Question(question == QuestionSet.WHAT_DO_YOU_LIKE_TO_DO_WHEN_OFFROAD && answer == Answers.UNDERTAKE_EXPEDITIONS)
+    then
+        askUserWithOtherOptions(QuestionSet.WHERE_ARE_THESE_EXPEDITIONS_TO, kcontext.getKieRuntime(), new Answers[]{
+        Answers.YOU_KNOW_THE_ARCTIC_ACROSS_AFRICA_NEPAL, Answers.THAT_BEACH_WHERE_YOU_CAN_SEE_BOOBS});
+end
+
+rule "WHERE_ARE_THESE_EXPEDITIONS_TO/YOU_KNOW_THE_ARCTIC_ACROSS_AFRICA_NEPAL"
+    when
+        Question: Question(question == QuestionSet.WHERE_ARE_THESE_EXPEDITIONS_TO && answer == Answers.YOU_KNOW_THE_ARCTIC_ACROSS_AFRICA_NEPAL)
+    then
+        showMessage(Messages.LAND_ROVER_LR4, kcontext.getKieRuntime());
+end
+
+rule "WHERE_ARE_THESE_EXPEDITIONS_TO/THAT_BEACH_WHERE_YOU_CAN_SEE_BOOBS"
+    when
+        Question: Question(question == QuestionSet.WHERE_ARE_THESE_EXPEDITIONS_TO && answer == Answers.YOU_KNOW_THE_ARCTIC_ACROSS_AFRICA_NEPAL)
+    then
+        showMessage(Messages.GMC_YUKON, kcontext.getKieRuntime());
+end
+
+rule "WHAT_DO_YOU_LIKE_TO_DO_WHEN_OFFROAD/RALLY"
+    when
+        Question: Question(question == QuestionSet.WHAT_DO_YOU_LIKE_TO_DO_WHEN_OFFROAD && answer == Answers.RALLY)
+    then
+        askUserWithOtherOptions(QuestionSet.REALLY_RALLY, kcontext.getKieRuntime(), new Answers[]{
+        Answers.AS_FAR_AS_YOU_KNOW, Answers.I_PRETENDED_OKAY});
+end
+
+rule "REALLY_RALLY/AS_FAR_AS_YOU_KNOW"
+    when
+        Question: Question(question == QuestionSet.REALLY_RALLY && answer == Answers.AS_FAR_AS_YOU_KNOW)
+    then
+        showMessage(Messages.AUDI_RS_Q3, kcontext.getKieRuntime());
+end
+
+rule "REALLY_RALLY/I_PRETENDED_OKAY"
+    when
+        Question: Question(question == QuestionSet.REALLY_RALLY && answer == Answers.I_PRETENDED_OKAY)
+    then
+        showMessage(Messages.VW_TIGUAN, kcontext.getKieRuntime());
+end
+
+rule "WILL_YOU_EVER_ACTUALLY_TAKE_IT_OFF_ROAD/SOMETIMES_FOR_WORK"
+    when
+        Question: Question(question == QuestionSet.WILL_YOU_EVER_ACTUALLY_TAKE_IT_OFF_ROAD && answer == Answers.SOMETIMES_FOR_WORK)
+    then
+        askUserWithOtherOptions(QuestionSet.WHATS_YOUR_WORK, kcontext.getKieRuntime(), new Answers[]{
+        Answers.CAMERA_CAR_DRIVER, Answers.MAN_STUFF_WITH_HARD_HATS});
+end
+
+rule "WHATS_YOUR_WORK/CAMERA_CAR_DRIVER"
+    when
+        Question: Question(question == QuestionSet.WHATS_YOUR_WORK && answer == Answers.CAMERA_CAR_DRIVER)
+    then
+        showMessage(Messages.PORSCHE_CAYENNE, kcontext.getKieRuntime());
+end
+
+rule "WHATS_YOUR_WORK/MAN_STUFF_WITH_HARD_HATS"
+    when
+        Question: Question(question == QuestionSet.WHATS_YOUR_WORK && answer == Answers.MAN_STUFF_WITH_HARD_HATS)
+    then
+        showMessage(Messages.CHEVY_SUBURBAN, kcontext.getKieRuntime());
+end
+
+rule "WILL_YOU_EVER_ACTUALLY_TAKE_IT_OFF_ROAD/NOT_IF_I_CAN_HELP"
+    when
+        Question: Question(question == QuestionSet.WILL_YOU_EVER_ACTUALLY_TAKE_IT_OFF_ROAD && answer == Answers.NOT_IF_I_CAN_HELP)
+    then
+        askUserWithOtherOptions(QuestionSet.SO_WAIT_WHY_ARE_YOU_BUYING_AN_SUV, kcontext.getKieRuntime(), new Answers[]{
+        Answers.I_LIKE_THE_STYLE, Answers.GOT_KIDS_DONT_WANT_MINIVAN, Answers.BIG_MAKES_ME_FEEL_SAFE, Answers.MAYBE_ILL_GO_OFFROAD, Answers.I_WANT_TO_DO_THINGS_I_CANT_DO_IN_CAR});
+end
+
+rule "SO_WAIT_WHY_ARE_YOU_BUYING_AN_SUV/I_LIKE_THE_STYLE"
+    when
+        Question: Question(question == QuestionSet.SO_WAIT_WHY_ARE_YOU_BUYING_AN_SUV && answer == Answers.I_LIKE_THE_STYLE)
+    then
+        askUserWithOtherOptions(QuestionSet.WHAT_DO_YOU_LIKE_ABOUT_THE_STYLE, kcontext.getKieRuntime(), new Answers[]{
+        Answers.I_GUESS_I_WANT_A_GIANT_MINI, Answers.BUT_MUCH_LESS_USEFUL,Answers.IM_INTO_CARTOONISH_LOOKING_GIANT_WHEELED_HATCHBACKS, Answers.THEY_MAKE_ME_FEEL_THOUGH, Answers.I_ALWAYS_WANTED_A_VEHICROSS});
+end
+
+rule "WHAT_DO_YOU_LIKE_ABOUT_THE_STYLE/I_GUESS_I_WANT_A_GIANT_MINI"
+    when
+        Question: Question(question == QuestionSet.WHAT_DO_YOU_LIKE_ABOUT_THE_STYLE && answer == Answers.I_GUESS_I_WANT_A_GIANT_MINI)
+    then
+        showMessage(Messages.FORD_FLEX, kcontext.getKieRuntime());
+end
+
+rule "WHAT_DO_YOU_LIKE_ABOUT_THE_STYLE/BUT_MUCH_LESS_USEFUL"
+    when
+        Question: Question(question == QuestionSet.WHAT_DO_YOU_LIKE_ABOUT_THE_STYLE && answer == Answers.BUT_MUCH_LESS_USEFUL)
+    then
+        showMessage(Messages.MINI_PACEMAN, kcontext.getKieRuntime());
+end
+
+rule "WHAT_DO_YOU_LIKE_ABOUT_THE_STYLE/IM_INTO_CARTOONISH_LOOKING_GIANT_WHEELED_HATCHBACKS"
+    when
+        Question: Question(question == QuestionSet.WHAT_DO_YOU_LIKE_ABOUT_THE_STYLE && answer == Answers.IM_INTO_CARTOONISH_LOOKING_GIANT_WHEELED_HATCHBACKS)
+    then
+        showMessage(Messages.HONDA_CROSSTOUR, kcontext.getKieRuntime());
+end
+
+rule "WHAT_DO_YOU_LIKE_ABOUT_THE_STYLE/I_ALWAYS_WANTED_A_VEHICROSS"
+    when
+        Question: Question(question == QuestionSet.WHAT_DO_YOU_LIKE_ABOUT_THE_STYLE && answer == Answers.I_ALWAYS_WANTED_A_VEHICROSS)
+    then
+        showMessage(Messages.NISSAN_JUKE, kcontext.getKieRuntime());
+end
+
+rule "WHAT_DO_YOU_LIKE_ABOUT_THE_STYLE/THEY_MAKE_ME_FEEL_THOUGH"
+    when
+        Question: Question(question == QuestionSet.WHAT_DO_YOU_LIKE_ABOUT_THE_STYLE && answer == Answers.THEY_MAKE_ME_FEEL_THOUGH)
+    then
+        askUserWithOtherOptions(QuestionSet.WHAT_KIND_OF_TOUGH, kcontext.getKieRuntime(), new Answers[]{
+        Answers.LIKE_A_GOVERNMENT_OFFICIAL, Answers.LIKE_IM_RICH_AND_IMPORTANT, Answers.LIKE_IM_EXCLUSIVE, Answers.LIKE_IM_A_LITTLE_FAMOUS_AND_TASTELESS, Answers.LIKE_IM_EROTICALLY_DRAWN_TO_A_CYBORG_BULL});
+end
+
+rule "WHAT_KIND_OF_TOUGH/LIKE_A_GOVERNMENT_OFFICIAL"
+    when
+        Question: Question(question == QuestionSet.WHAT_KIND_OF_TOUGH && answer == Answers.LIKE_A_GOVERNMENT_OFFICIAL)
+    then
+        showMessage(Messages.CHEVY_TAHOE, kcontext.getKieRuntime());
+end
+
+rule "WHAT_KIND_OF_TOUGH/LIKE_IM_RICH_AND_IMPORTANT"
+    when
+        Question: Question(question == QuestionSet.WHAT_KIND_OF_TOUGH && answer == Answers.LIKE_IM_RICH_AND_IMPORTANT)
+    then
+        showMessage(Messages.LEXUS_LX, kcontext.getKieRuntime());
+end
+
+rule "WHAT_KIND_OF_TOUGH/LIKE_IM_A_LITTLE_FAMOUS_AND_TASTELESS"
+    when
+        Question: Question(question == QuestionSet.WHAT_KIND_OF_TOUGH && answer == Answers.LIKE_IM_A_LITTLE_FAMOUS_AND_TASTELESS)
+    then
+        showMessage(Messages.LINCOLN_NAVIGATOR, kcontext.getKieRuntime());
+end
+
+rule "WHAT_KIND_OF_TOUGH/LIKE_IM_EROTICALLY_DRAWN_TO_A_CYBORG_BULL"
+    when
+        Question: Question(question == QuestionSet.WHAT_KIND_OF_TOUGH && answer == Answers.LIKE_IM_EROTICALLY_DRAWN_TO_A_CYBORG_BULL)
+    then
+        showMessage(Messages.INFINITI_QX56, kcontext.getKieRuntime());
+end
+
+rule "WHAT_KIND_OF_TOUGH/LIKE_IM_EXCLUSIVE"
+    when
+        Question: Question(question == QuestionSet.WHAT_KIND_OF_TOUGH && answer == Answers.LIKE_IM_EXCLUSIVE)
+    then
+        askUserWithOtherOptions(QuestionSet.LIKE_UNICORN_LEVEL_EXCLUSIVE, kcontext.getKieRuntime(), new Answers[]{
+        Answers.YES, Answers.I_DONT_WANNA_WAIT_FOREVER});
+end
+
+rule "LIKE_UNICORN_LEVEL_EXCLUSIVE/YES"
+    when
+        Question: Question(question == QuestionSet.LIKE_UNICORN_LEVEL_EXCLUSIVE && answer == Answers.YES)
+    then
+        showMessage(Messages.LAMBORGHINI_URUS, kcontext.getKieRuntime());
+end
+
+rule "LIKE_UNICORN_LEVEL_EXCLUSIVE/I_DONT_WANNA_WAIT_FOREVER"
+    when
+        Question: Question(question == QuestionSet.LIKE_UNICORN_LEVEL_EXCLUSIVE && answer == Answers.I_DONT_WANNA_WAIT_FOREVER)
+    then
+        showMessage(Messages.AUDI_Q7, kcontext.getKieRuntime());
+end
+
+rule "SO_WAIT_WHY_ARE_YOU_BUYING_AN_SUV/GOT_KIDS_DONT_WANT_MINIVAN"
+    when
+        Question: Question(question == QuestionSet.SO_WAIT_WHY_ARE_YOU_BUYING_AN_SUV && answer == Answers.GOT_KIDS_DONT_WANT_MINIVAN)
+    then
+        askUserWithOtherOptions(QuestionSet.WHY_NOT_A_MINIVAN, kcontext.getKieRuntime(), new Answers[]{
+        Answers.I_WANT_SOMETHING_FUN_TO_DRIVE, Answers.JUST_SOME_GENERAL_STIGMA_THING});
+end
+
+rule "WHY_NOT_A_MINIVAN/I_WANT_SOMETHING_FUN_TO_DRIVE"
+    when
+        Question: Question(question == QuestionSet.LIKE_UNICORN_LEVEL_EXCLUSIVE && answer == Answers.I_WANT_SOMETHING_FUN_TO_DRIVE)
+    then
+        showMessage(Messages.MAZDA_CX5, kcontext.getKieRuntime());
+end
+
+rule "WHY_NOT_A_MINIVAN/JUST_SOME_GENERAL_STIGMA_THING"
+    when
+        Question: Question(question == QuestionSet.LIKE_UNICORN_LEVEL_EXCLUSIVE && answer == Answers.JUST_SOME_GENERAL_STIGMA_THING)
+    then
+        showMessage(Messages.HYUNDAI_TUCSON, kcontext.getKieRuntime());
+end
+
+rule "SO_WAIT_WHY_ARE_YOU_BUYING_AN_SUV/BIG_MAKES_ME_FEEL_SAFE"
+    when
+        Question: Question(question == QuestionSet.SO_WAIT_WHY_ARE_YOU_BUYING_AN_SUV && answer == Answers.BIG_MAKES_ME_FEEL_SAFE)
+    then
+        showMessage(Messages.VOLVO_XC60, kcontext.getKieRuntime());
+end
+
+rule "SO_WAIT_WHY_ARE_YOU_BUYING_AN_SUV/MAYBE_ILL_GO_OFFROAD"
+    when
+        Question: Question(question == QuestionSet.SO_WAIT_WHY_ARE_YOU_BUYING_AN_SUV && answer == Answers.MAYBE_ILL_GO_OFFROAD)
+    then
+        askUserWithOtherOptions(QuestionSet.WILL_YOU_REALLY, kcontext.getKieRuntime(), new Answers[]{
+        Answers.NO_FUCK_IT_GIMME_AN_EV});
+end
+
+rule "WILL_YOU_REALLY/NO_FUCK_IT_GIMME_AN_EV"
+    when
+        Question: Question(question == QuestionSet.WILL_YOU_REALLY && answer == Answers.NO_FUCK_IT_GIMME_AN_EV)
+    then
+        showMessage(Messages.TOYOTA_RAV4_EV, kcontext.getKieRuntime());
+end
+
+rule "SO_WAIT_WHY_ARE_YOU_BUYING_AN_SUV/I_WANT_TO_DO_THINGS_I_CANT_DO_IN_CAR"
+    when
+        Question: Question(question == QuestionSet.SO_WAIT_WHY_ARE_YOU_BUYING_AN_SUV && answer == Answers.I_WANT_TO_DO_THINGS_I_CANT_DO_IN_CAR)
+    then
+        askUserWithOtherOptions(QuestionSet.WHAT_KIND_OF_THINGS, kcontext.getKieRuntime(), new Answers[]{
+        Answers.DRIVE_REALLY_FAST_IN_SOMETHING_REALLY_TALL, Answers.DRIVE_SOMETHING_SO_911S_CAS_STILL_BE_MADE, Answers.DRIVE_SIX_PEOPLE_ALL_IN_PILOTS_CHAIRS, Answers.GO_ANTIQUING_OFF_ROAD_IN_AN_ORANGE_CAR, Answers.DRIVE_SOMETHING_UNPRONOUNCABLE});
+end
+
+rule "WHAT_KIND_OF_THINGS/DRIVE_REALLY_FAST_IN_SOMETHING_REALLY_TALL"
+    when
+        Question: Question(question == QuestionSet.WHAT_KIND_OF_THINGS && answer == Answers.DRIVE_REALLY_FAST_IN_SOMETHING_REALLY_TALL)
+    then
+        showMessage(Messages.JEEP_GRAND_CHEROKEE_SRT8, kcontext.getKieRuntime());
+end
+
+rule "WHAT_KIND_OF_THINGS/DRIVE_SOMETHING_SO_911S_CAS_STILL_BE_MADE"
+    when
+        Question: Question(question == QuestionSet.WHAT_KIND_OF_THINGS && answer == Answers.DRIVE_SOMETHING_SO_911S_CAS_STILL_BE_MADE)
+    then
+        showMessage(Messages.PORSCHE_CAYENNE, kcontext.getKieRuntime());
+end
+
+rule "WHAT_KIND_OF_THINGS/DRIVE_SIX_PEOPLE_ALL_IN_PILOTS_CHAIRS"
+    when
+        Question: Question(question == QuestionSet.WHAT_KIND_OF_THINGS && answer == Answers.DRIVE_SIX_PEOPLE_ALL_IN_PILOTS_CHAIRS)
+    then
+        showMessage(Messages.HYUNDAI_SANTA_FE_LTD, kcontext.getKieRuntime());
+end
+
+rule "WHAT_KIND_OF_THINGS/GO_ANTIQUING_OFF_ROAD_IN_AN_ORANGE_CAR"
+    when
+        Question: Question(question == QuestionSet.WHAT_KIND_OF_THINGS && answer == Answers.GO_ANTIQUING_OFF_ROAD_IN_AN_ORANGE_CAR)
+    then
+        showMessage(Messages.SUBARU_XV_CROSSTREK, kcontext.getKieRuntime());
+end
+
+rule "WHAT_KIND_OF_THINGS/DRIVE_SOMETHING_UNPRONOUNCABLE"
+    when
+        Question: Question(question == QuestionSet.WHAT_KIND_OF_THINGS && answer == Answers.DRIVE_SOMETHING_UNPRONOUNCABLE)
+    then
+        showMessage(Messages.VW_TOUAREG, kcontext.getKieRuntime());
 end
